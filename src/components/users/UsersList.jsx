@@ -7,13 +7,15 @@ import {
   UserItem,
   UserDate,
 } from './UsersList.styled';
-import { followUser } from '../../redux/operations';
+import { followUser, getUsers } from '../../redux/operations';
+import { increasePage } from '../../redux/contactsSlice';
 
 export const UsersCollection = () => {
   const dispatch = useDispatch();
+  let currentPage = useSelector((state) => state.users.page);
+  console.log(currentPage);
 
   const { users } = useSelector(selectUsers);
-  // console.log(users);
 
   return (
     <UsersContainer>
@@ -24,7 +26,7 @@ export const UsersCollection = () => {
             <UserItem key={user.id}>
               <UserDate>
                 <span>
-                  <img src={user.avatar} width='50' height='50' />
+                  <img src={user.avatar} width='50' height='50' alt='avatar' />
                 </span>
                 <span>{user.name}</span>
 
@@ -45,7 +47,15 @@ export const UsersCollection = () => {
         </UsersList>
       )}
       <div>
-        <button type='button'>Load more...</button>
+        <button
+          type='button'
+          onClick={() => {
+            dispatch(getUsers(currentPage + 1));
+            dispatch(increasePage(currentPage + 1));
+          }}
+        >
+          Load more...
+        </button>
       </div>
     </UsersContainer>
   );

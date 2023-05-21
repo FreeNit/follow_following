@@ -1,12 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const BASE_URL = 'https://6460b470ca2d89f7e75d061e.mockapi.io';
+const BASE_URL = new URL('https://6460b470ca2d89f7e75d061e.mockapi.io/users');
+// BASE_URL.searchParams.append('isFollowing', false);
+// BASE_URL.searchParams.append('page', 1);
+// BASE_URL.searchParams.append('limit', 3);
+
+const BASE_URL_PUT = new URL(
+  'https://6460b470ca2d89f7e75d061e.mockapi.io/users'
+);
 
 export const getUsers = createAsyncThunk(
   'users/fetchAll',
-  async (_, thunkAPI) => {
+  async (page = 1, thunkAPI) => {
     try {
-      const data = await fetch(`${BASE_URL}/users`);
+      console.log(page);
+      const data = await fetch(`${BASE_URL}?page=${page}&limit=3`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      });
       if (data.statusText === 'OK') {
         return await data.json();
       }
@@ -24,16 +35,16 @@ export const followUser = createAsyncThunk(
       : userData.followers - 1;
 
     try {
-      await fetch(`${BASE_URL}/users/${userData.id}`, {
+      await fetch(`${BASE_URL_PUT}/${userData.id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           isFollowing: !userData.isFollowing,
-          followers: 100500,
+          followers: followers,
         }),
       });
 
-      const data = await fetch(`${BASE_URL}/users`);
+      const data = await fetch(`${BASE_URL}`);
       if (data.statusText === 'OK') {
         return await data.json();
       }

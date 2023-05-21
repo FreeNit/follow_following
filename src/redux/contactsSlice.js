@@ -6,12 +6,20 @@ const contactsInitialState = {
   users: [],
   isLoading: false,
   error: null,
+  page: 1,
 };
 
 const usersSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
-  reducers: {},
+  reducers: {
+    increasePage(state, action) {
+      return {
+        ...state,
+        page: action.payload,
+      };
+    },
+  },
   extraReducers: {
     [getUsers.pending](state, action) {
       return {
@@ -24,7 +32,7 @@ const usersSlice = createSlice({
         ...state,
         isLoading: false,
         error: null,
-        users: action.payload,
+        users: [...state.users, ...action.payload],
       };
     },
     [getUsers.rejected](state, action) {
@@ -58,4 +66,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { increasePage } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

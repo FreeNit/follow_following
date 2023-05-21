@@ -61,16 +61,26 @@ export const UserDetails = styled.div`
 `;
 
 export const FollowBtn = styled.button`
-  padding: 14px 55px;
+  /* padding: 14px 55px; */
+  padding: 15px 5px;
+  width: 200px;
+
   border-radius: 10px;
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 35px;
+  background-color: #ebd8ff;
   cursor: pointer;
   transition: all 250ms ease-out;
+  border: none;
+  outline: none;
 
   &:hover {
     box-shadow: rgba(148, 136, 224, 0.7) 0px 5px 15px;
+  }
+
+  &.follow-green {
+    background-color: #5cd3a8;
   }
 `;
 
@@ -84,6 +94,9 @@ export const LoadMoreWrapper = styled.div`
     text-transform: uppercase;
     margin-bottom: 35px;
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #ebd8ff;
     transition: all 250ms ease-out;
 
     &:hover {

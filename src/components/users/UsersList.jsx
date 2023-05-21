@@ -45,6 +45,9 @@ export const UsersCollection = () => {
                 </UserDetails>
                 {/* <span>isFollowing: {user.isFollowing.toString()}</span> */}
                 <FollowBtn
+                  className={
+                    user.isFollowing ? 'follow-green' : 'unfollow-white'
+                  }
                   type='button'
                   onClick={() => {
                     dispatch(followUser(user));

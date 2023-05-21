@@ -19,6 +19,22 @@ const usersSlice = createSlice({
         page: action.payload,
       };
     },
+    followUserStatus(state, action) {
+      return {
+        ...state,
+        users: state.users.map((user) =>
+          user.id === action.payload
+            ? {
+                ...user,
+                isFollowing: !user.isFollowing,
+                followers: !user.isFollowing
+                  ? user.followers + 1
+                  : user.followers - 1,
+              }
+            : user
+        ),
+      };
+    },
   },
   extraReducers: {
     [getUsers.pending](state, action) {
@@ -53,7 +69,6 @@ const usersSlice = createSlice({
         ...state,
         isLoading: false,
         error: null,
-        users: action.payload,
       };
     },
     [followUser.rejected](state, action) {
@@ -66,5 +81,5 @@ const usersSlice = createSlice({
   },
 });
 
-export const { increasePage } = usersSlice.actions;
+export const { increasePage, followUserStatus } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

@@ -43,10 +43,10 @@ export const followUser = createAsyncThunk(
         }),
       });
 
-      const data = await fetch(`${BASE_URL}`);
-      if (data.statusText === 'OK') {
-        return await data.json();
-      }
+      // const data = await fetch(`${BASE_URL}`);
+      // if (data.statusText === 'OK') {
+      //   return await data.json();
+      // }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

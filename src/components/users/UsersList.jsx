@@ -13,7 +13,7 @@ import {
   DecorLine,
 } from './UsersList.styled';
 import { followUser, getUsers } from '../../redux/operations';
-import { increasePage } from '../../redux/contactsSlice';
+import { followUserStatus, increasePage } from '../../redux/contactsSlice';
 
 export const UsersCollection = () => {
   const dispatch = useDispatch();
@@ -48,6 +48,8 @@ export const UsersCollection = () => {
                   type='button'
                   onClick={() => {
                     dispatch(followUser(user));
+
+                    dispatch(followUserStatus(user.id));
                   }}
                 >
                   {user.isFollowing ? 'Following' : 'Follow'}

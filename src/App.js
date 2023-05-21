@@ -1,10 +1,11 @@
-import './App.css';
-
+import { GlobalStyle } from './components/GlobalStyle';
 import { getUsers } from './redux/operations';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { UsersCollection } from './components/users/UsersList';
+
+import { AppStyled } from './components/App/App.styled';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,11 +15,13 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className='App'>
+    <AppStyled>
       <section>
         <UsersCollection />
       </section>
-    </div>
+
+      <GlobalStyle />
+    </AppStyled>
   );
 }
 

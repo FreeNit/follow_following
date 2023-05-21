@@ -4,7 +4,14 @@ export const UsersContainer = styled.div`
   width: 1200px;
   display: inline-flex;
   flex-direction: column;
+  justify-content: center;
   gap: 15px;
+  color: #ebd8ff;
+
+  h3 {
+    color: #4c2a9a;
+    text-align: center;
+  }
 `;
 
 export const UsersList = styled.ul`
@@ -17,16 +24,79 @@ export const UsersList = styled.ul`
 `;
 
 export const UserItem = styled.li`
-  height: 250px;
-  flex-basis: calc((100% - 60px) / 4);
+  position: relative;
+  flex-basis: calc((100% - 45px) / 3);
   display: inline-block;
   padding: 15px;
   border: 1px solid black;
+  border-radius: 20px;
+
+  background-color: #4c2a9a;
+  text-align: center;
 `;
 
 export const UserDate = styled.div`
   display: inline-flex;
   flex-direction: column;
+  gap: 25px;
+`;
 
-  gap: 5px;
+export const AvatarWrapper = styled.div`
+  position: relative;
+  z-index: 5;
+  display: inline-flex;
+  justify-content: center;
+
+  img {
+    border-radius: 1000px;
+    border: 5px solid #fff;
+  }
+`;
+
+export const UserDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+`;
+
+export const FollowBtn = styled.button`
+  padding: 14px 55px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  cursor: pointer;
+  transition: all 250ms ease-out;
+
+  &:hover {
+    box-shadow: rgba(148, 136, 224, 0.7) 0px 5px 15px;
+  }
+`;
+
+export const LoadMoreWrapper = styled.div`
+  text-align: center;
+
+  button {
+    padding: 14px 55px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    cursor: pointer;
+    transition: all 250ms ease-out;
+
+    &:hover {
+      box-shadow: rgb(76, 42, 154) 0px 5px 15px;
+    }
+  }
+`;
+
+export const DecorLine = styled.div`
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  background-color: #fff;
+  left: 0;
+  top: 50%;
 `;

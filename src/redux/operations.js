@@ -13,7 +13,6 @@ export const getUsers = createAsyncThunk(
   'users/fetchAll',
   async (page = 1, thunkAPI) => {
     try {
-      console.log(page);
       const data = await fetch(`${BASE_URL}?page=${page}&limit=3`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },

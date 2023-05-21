@@ -6,6 +6,11 @@ import {
   UsersList,
   UserItem,
   UserDate,
+  AvatarWrapper,
+  FollowBtn,
+  UserDetails,
+  LoadMoreWrapper,
+  DecorLine,
 } from './UsersList.styled';
 import { followUser, getUsers } from '../../redux/operations';
 import { increasePage } from '../../redux/contactsSlice';
@@ -13,8 +18,6 @@ import { increasePage } from '../../redux/contactsSlice';
 export const UsersCollection = () => {
   const dispatch = useDispatch();
   let currentPage = useSelector((state) => state.users.page);
-  console.log(currentPage);
-
   const { users } = useSelector(selectUsers);
 
   return (
@@ -24,29 +27,37 @@ export const UsersCollection = () => {
         <UsersList>
           {users.map((user) => (
             <UserItem key={user.id}>
-              <UserDate>
-                <span>
-                  <img src={user.avatar} width='50' height='50' alt='avatar' />
-                </span>
-                <span>{user.name}</span>
+              <DecorLine />
+              <img src={require('./../../images/Logo.png')} alt='top_bg' />
 
-                <span>{user.tweets} TWEETS</span>
-                <span>{user.followers.toLocaleString('en-US')} FOLLOWERS</span>
-                <span>isFollowing: {user.isFollowing.toString()}</span>
-                <button
+              <div>
+                <img src={require('./../../images/top_bg.png')} alt='top_bg' />
+              </div>
+              <UserDate>
+                <AvatarWrapper>
+                  <img src={user.avatar} width='80' alt='avatar' />
+                </AvatarWrapper>
+                <UserDetails>
+                  <span>{user.tweets} TWEETS</span>
+                  <span>
+                    {user.followers.toLocaleString('en-US')} FOLLOWERS
+                  </span>
+                </UserDetails>
+                {/* <span>isFollowing: {user.isFollowing.toString()}</span> */}
+                <FollowBtn
                   type='button'
                   onClick={() => {
                     dispatch(followUser(user));
                   }}
                 >
                   {user.isFollowing ? 'Following' : 'Follow'}
-                </button>
+                </FollowBtn>
               </UserDate>
             </UserItem>
           ))}
         </UsersList>
       )}
-      <div>
+      <LoadMoreWrapper>
         <button
           type='button'
           onClick={() => {
@@ -56,7 +67,7 @@ export const UsersCollection = () => {
         >
           Load more...
         </button>
-      </div>
+      </LoadMoreWrapper>
     </UsersContainer>
   );
 };

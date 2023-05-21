@@ -19,12 +19,18 @@ export const getUsers = createAsyncThunk(
 export const followUser = createAsyncThunk(
   'users/follow',
   async (userData, thunkAPI) => {
-    console.log(userData);
+    const followers = !userData.isFollowing
+      ? userData.followers + 1
+      : userData.followers - 1;
+
     try {
       await fetch(`${BASE_URL}/users/${userData.id}`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ isFollowing: !userData.isFollowing }),
+        body: JSON.stringify({
+          isFollowing: !userData.isFollowing,
+          followers: 100500,
+        }),
       });
 
       const data = await fetch(`${BASE_URL}/users`);

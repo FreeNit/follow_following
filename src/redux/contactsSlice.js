@@ -41,7 +41,6 @@ const usersSlice = createSlice({
       };
     },
     [followUser.fulfilled](state, action) {
-      console.log(action);
       return {
         ...state,
         isLoading: false,

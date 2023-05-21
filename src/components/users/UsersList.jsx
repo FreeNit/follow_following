@@ -29,7 +29,7 @@ export const UsersCollection = () => {
                 <span>{user.name}</span>
 
                 <span>{user.tweets} TWEETS</span>
-                <span>{user.followers} FOLLOWERS</span>
+                <span>{user.followers.toLocaleString('en-US')} FOLLOWERS</span>
                 <span>isFollowing: {user.isFollowing.toString()}</span>
                 <button
                   type='button'
@@ -37,7 +37,7 @@ export const UsersCollection = () => {
                     dispatch(followUser(user));
                   }}
                 >
-                  {user.isFollowing ? 'Unfollow' : 'Follow'}
+                  {user.isFollowing ? 'Following' : 'Follow'}
                 </button>
               </UserDate>
             </UserItem>

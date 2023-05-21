@@ -16,7 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/follow_following/twits' element={<Twits />} />
         </Route>
-        <Route path='*' element={<Home />} />
+        <Route path='*' element={<SharedLayout />} />
       </Routes>
 
       <GlobalStyle />

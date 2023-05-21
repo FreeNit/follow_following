@@ -1,33 +1,23 @@
 import { GlobalStyle } from './components/GlobalStyle';
-import { getUsers } from './redux/operations';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
-import { UsersCollection } from './components/users/UsersList';
+import { AppStyled } from './components/App/App.styled';
+import { Route, Routes } from 'react-router-dom/dist';
 
-import { AppStyled, SpinnerPopup } from './components/App/App.styled';
-import { selectIsLoading } from './redux/selectors';
+// import { Home } from './pages/Home';
+import SharedLayout from './components/SharedLayout';
+import { Twits } from './pages/Twits';
+import { Home } from './pages/Home';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
-  const isLoadingValue = useSelector(selectIsLoading);
-
   return (
     <AppStyled>
-      {isLoadingValue && (
-        <SpinnerPopup>
-          <img src={require('./images/spinner.gif')} alt='spinner' />
-          <h3>...Data is loading</h3>
-        </SpinnerPopup>
-      )}
-      <section>
-        <UsersCollection />
-      </section>
+      <Routes>
+        <Route path='/follow_following' element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path='/follow_following/twits' element={<Twits />} />
+        </Route>
+        <Route path='*' element={<Home />} />
+      </Routes>
 
       <GlobalStyle />
     </AppStyled>

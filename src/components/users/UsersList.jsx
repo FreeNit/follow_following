@@ -12,7 +12,7 @@ import {
   LoadMoreWrapper,
   DecorLine,
 } from './UsersList.styled';
-import { followUser, getUsers } from '../../redux/operations';
+import { followUser, loadMoreUsers } from '../../redux/operations';
 import { followUserStatus, increasePage } from '../../redux/contactsSlice';
 
 export const UsersCollection = () => {
@@ -66,7 +66,7 @@ export const UsersCollection = () => {
         <button
           type='button'
           onClick={() => {
-            dispatch(getUsers(currentPage + 1));
+            dispatch(loadMoreUsers(currentPage + 1));
             dispatch(increasePage(currentPage + 1));
           }}
         >

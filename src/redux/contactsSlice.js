@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getUsers, followUser } from './operations';
+import { getUsers, followUser, loadMoreUsers } from './operations';
 
 const contactsInitialState = {
   users: [],
@@ -13,6 +13,12 @@ const usersSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
   reducers: {
+    clearState(state, action) {
+      return {
+        ...state,
+        users: [],
+      };
+    },
     increasePage(state, action) {
       return {
         ...state,
@@ -48,10 +54,31 @@ const usersSlice = createSlice({
         ...state,
         isLoading: false,
         error: null,
-        users: [...state.users, ...action.payload],
+        users: [...action.payload],
       };
     },
     [getUsers.rejected](state, action) {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    },
+    [loadMoreUsers.pending](state, action) {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+    [loadMoreUsers.fulfilled](state, action) {
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        users: [...state.users, ...action.payload],
+      };
+    },
+    [loadMoreUsers.rejected](state, action) {
       return {
         ...state,
         isLoading: false,
@@ -81,5 +108,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { increasePage, followUserStatus } = usersSlice.actions;
+export const { increasePage, followUserStatus, clearState } =
+  usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

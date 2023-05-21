@@ -52,3 +52,20 @@ export const followUser = createAsyncThunk(
     }
   }
 );
+
+export const loadMoreUsers = createAsyncThunk(
+  'users/fetchAll',
+  async (page = 1, thunkAPI) => {
+    try {
+      const data = await fetch(`${BASE_URL}?page=${page}&limit=3`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      });
+      if (data.statusText === 'OK') {
+        return await data.json();
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

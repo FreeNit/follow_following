@@ -7,6 +7,8 @@ export const AppStyled = styled.div`
 
 export const SpinnerPopup = styled.div`
   position: fixed;
+  left: 0;
+  top: 0;
   z-index: 100;
   width: 100%;
   height: 100%;

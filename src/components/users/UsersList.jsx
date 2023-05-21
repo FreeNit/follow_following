@@ -15,17 +15,56 @@ import {
 import { followUser, loadMoreUsers } from '../../redux/operations';
 import { followUserStatus, increasePage } from '../../redux/contactsSlice';
 
+import React, { useState } from 'react';
+import Select from 'react-select';
+
+const options = [
+  { value: 'All', label: 'All' },
+  { value: 'Follow', label: 'Follow' },
+  { value: 'Following', label: 'Following' },
+];
+
 export const UsersCollection = () => {
   const dispatch = useDispatch();
   let currentPage = useSelector((state) => state.users.page);
   const { users } = useSelector(selectUsers);
 
+  const [selectedOption, setSelectedOption] = useState('');
+
+  console.log(selectedOption.value);
+
+  const normalizedFilter = selectedOption.value
+    ? selectedOption.value.toLowerCase()
+    : '';
+
+  const visibleUsers =
+    users.length > 0
+      ? users.filter((user) => {
+          if (normalizedFilter === 'following') {
+            return user.isFollowing === true;
+          }
+          if (normalizedFilter === 'follow') {
+            return user.isFollowing === false;
+          }
+          return user;
+        })
+      : [];
+
+  console.log('VISIBLE USERS -> ', visibleUsers);
+
   return (
     <UsersContainer>
       <h3>Tweets</h3>
+      <div style={{ color: '#4c2a9a' }}>
+        <Select
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          options={options}
+        />
+      </div>
       {users.length > 0 && (
         <UsersList>
-          {users.map((user) => (
+          {visibleUsers.map((user) => (
             <UserItem key={user.id}>
               <DecorLine />
               <img src={require('./../../images/Logo.png')} alt='top_bg' />
